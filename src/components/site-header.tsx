@@ -43,25 +43,31 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    const updateActiveSection = () => {
+      const focusLine = window.scrollY + window.innerHeight * 0.32;
+      let nextActive = sections[0].id;
 
-        if (visible?.target?.id) {
-          setActiveSection(visible.target.id);
+      for (const section of sections) {
+        if (focusLine >= section.offsetTop - 120) {
+          nextActive = section.id;
+        } else {
+          break;
         }
-      },
-      {
-        rootMargin: "-38% 0px -52% 0px",
-        threshold: [0.15, 0.3, 0.5, 0.75],
-      },
-    );
+      }
 
-    sections.forEach((section) => observer.observe(section));
+      setActiveSection(nextActive);
+    };
 
-    return () => observer.disconnect();
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    window.addEventListener("hashchange", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+      window.removeEventListener("hashchange", updateActiveSection);
+    };
   }, [currentPath]);
 
   const homeLink = useMemo(() => (currentPath === "/" ? "/#home" : "/"), [currentPath]);
@@ -87,7 +93,17 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
               const href = currentPath === "/" ? `/#${item.anchor}` : item.route;
 
               return (
-                <Link key={item.label} href={href} className="header-link" data-active={isActive}>
+                <Link
+                  key={item.label}
+                  href={href}
+                  className="header-link"
+                  data-active={isActive}
+                  onClick={() => {
+                    if (currentPath === "/") {
+                      setActiveSection(item.anchor);
+                    }
+                  }}
+                >
                   {item.label}
                 </Link>
               );
@@ -125,7 +141,12 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
                   href={href}
                   className="header-link"
                   data-active={isActive}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => {
+                    if (currentPath === "/") {
+                      setActiveSection(item.anchor);
+                    }
+                    setMenuOpen(false);
+                  }}
                 >
                   {item.label}
                 </Link>

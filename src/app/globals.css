@@ -202,9 +202,39 @@ main {
   gap: 1.25rem;
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes soft-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .header-link {
   position: relative;
   padding-bottom: 0.2rem;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.header-link:hover {
+  transform: translateY(-1px);
+  color: #f8f3ea;
 }
 
 .header-link::after {
@@ -392,6 +422,7 @@ main {
     linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01)),
     radial-gradient(circle at top left, rgba(201, 162, 75, 0.08), transparent 36%),
     #0a0a0a;
+  animation: fade-up 700ms ease-out both;
 }
 
 .hero__eyebrow {
@@ -443,6 +474,7 @@ main {
   background:
     radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 246, 222, 0.76) 18%, rgba(244, 235, 210, 0.2) 41%, transparent 54%),
     linear-gradient(135deg, #40352c 0%, #6d5c4c 20%, #f3ead9 49%, #c9b9a1 62%, #2e261f 100%);
+  animation: soft-pop 900ms ease-out both;
 }
 
 .hero__visual::before,
@@ -522,6 +554,11 @@ main {
 
 #colors.content-block {
   padding-top: clamp(6rem, 9vw, 8rem);
+}
+
+.content-block .section__inner,
+.page-hero .section__inner {
+  animation: fade-up 720ms ease both;
 }
 
 .content-grid {
@@ -685,6 +722,11 @@ main {
   border: 1px solid rgba(201, 162, 75, 0.14);
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(4px);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease;
 }
 
 .section--cream .feature-card,
@@ -702,6 +744,16 @@ main {
   gap: 0.8rem;
   align-content: start;
   min-height: 12.5rem;
+}
+
+.feature-card:hover,
+.service-card:hover,
+.about-stat:hover,
+.contact-card:hover,
+.panel-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 162, 75, 0.36);
+  box-shadow: 0 20px 34px rgba(0, 0, 0, 0.16);
 }
 
 .feature-card svg,
@@ -859,6 +911,12 @@ main {
   justify-content: flex-end;
   padding: 1.25rem;
   overflow: hidden;
+}
+
+.gallery-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  border-color: rgba(201, 162, 75, 0.34);
+  box-shadow: 0 24px 42px rgba(0, 0, 0, 0.22);
 }
 
 .gallery-card::before {
@@ -1085,6 +1143,36 @@ main {
   min-height: 26rem;
   border: 0;
   display: block;
+}
+
+.feature-grid > *:nth-child(1),
+.gallery-grid > *:nth-child(1),
+.home-about > *:nth-child(1),
+.contact-rail > *:nth-child(1),
+.split-panels > *:nth-child(1) {
+  animation-delay: 40ms;
+}
+
+.feature-grid > *:nth-child(2),
+.gallery-grid > *:nth-child(2),
+.home-about > *:nth-child(2),
+.contact-rail > *:nth-child(2),
+.split-panels > *:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.feature-grid > *:nth-child(3),
+.gallery-grid > *:nth-child(3),
+.home-about > *:nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.feature-grid > *,
+.gallery-grid > *,
+.home-about > *,
+.contact-rail > *,
+.split-panels > * {
+  animation: fade-up 620ms ease both;
 }
 
 .page-map {
@@ -1365,4 +1453,14 @@ main {
   .swatch-card:nth-child(3) { --swatch-left: 40%; --swatch-top: 0.8rem; --swatch-rotate: 4deg; }
   .swatch-card:nth-child(4) { --swatch-left: 60%; --swatch-top: 1.2rem; --swatch-rotate: 8deg; }
   .swatch-card:nth-child(5) { --swatch-left: 80%; --swatch-top: 1.6rem; --swatch-rotate: 12deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }

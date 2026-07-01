@@ -1,10 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { COLOR_SWATCHES, COLOR_TONES } from "@/data/site";
 
 export function ColorCatalog() {
   const [tone, setTone] = useState<(typeof COLOR_TONES)[number]["value"]>("all");
+
+  useEffect(() => {
+    // Ensure the Colors route starts from the top after navigation.
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
 
   const visibleSwatches =
     tone === "all" ? COLOR_SWATCHES : COLOR_SWATCHES.filter((item) => item.tone === tone);

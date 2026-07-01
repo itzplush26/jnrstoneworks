@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { NAV_ITEMS } from "@/data/site";
 import jnrLogo from "../../jnrlogonobg.png";
 
@@ -16,7 +16,6 @@ export function SiteHeader() {
 
 function HeaderContent({ currentPath }: { currentPath: string }) {
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -30,52 +29,10 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    if (currentPath !== "/") {
-      return;
-    }
-
-    const sections = NAV_ITEMS.map((item) => document.getElementById(item.anchor)).filter(
-      (section): section is HTMLElement => Boolean(section),
-    );
-
-    if (!sections.length) {
-      return;
-    }
-
-    const updateActiveSection = () => {
-      const focusLine = window.scrollY + window.innerHeight * 0.32;
-      let nextActive = sections[0].id;
-
-      for (const section of sections) {
-        if (focusLine >= section.offsetTop - 120) {
-          nextActive = section.id;
-        } else {
-          break;
-        }
-      }
-
-      setActiveSection(nextActive);
-    };
-
-    updateActiveSection();
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
-    window.addEventListener("resize", updateActiveSection);
-    window.addEventListener("hashchange", updateActiveSection);
-
-    return () => {
-      window.removeEventListener("scroll", updateActiveSection);
-      window.removeEventListener("resize", updateActiveSection);
-      window.removeEventListener("hashchange", updateActiveSection);
-    };
-  }, [currentPath]);
-
-  const homeLink = useMemo(() => (currentPath === "/" ? "/#home" : "/"), [currentPath]);
-
   return (
     <header className="site-header" data-scrolled={scrolled}>
       <div className="site-header__inner">
-        <Link className="site-brand" href={homeLink} aria-label="JNR Stone Works Trading Inc. home">
+        <Link className="site-brand" href="/" aria-label="JNR Stone Works Trading Inc. home">
           <Image
             className="site-brand__logo"
             src={jnrLogo}
@@ -89,8 +46,8 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
         <nav className="site-header__nav" aria-label="Primary navigation">
           <div className="site-header__links">
             {NAV_ITEMS.map((item) => {
-              const isActive = currentPath === "/" ? activeSection === item.anchor : currentPath === item.route;
-              const href = currentPath === "/" ? `/#${item.anchor}` : item.route;
+              const isActive = currentPath === item.route;
+              const href = item.route;
 
               return (
                 <Link
@@ -98,11 +55,6 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
                   href={href}
                   className="header-link"
                   data-active={isActive}
-                  onClick={() => {
-                    if (currentPath === "/") {
-                      setActiveSection(item.anchor);
-                    }
-                  }}
                 >
                   {item.label}
                 </Link>
@@ -111,7 +63,7 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
           </div>
 
           <div className="site-header__actions">
-            <Link className="button button--ghost" href={currentPath === "/" ? "/#contact" : "/contact"}>
+            <Link className="button button--ghost" href="/contact">
               Get a Quote
             </Link>
           </div>
@@ -132,8 +84,8 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
         <div className="site-header__drawer-inner">
           <div className="site-header__drawer-links">
             {NAV_ITEMS.map((item) => {
-              const isActive = currentPath === "/" ? activeSection === item.anchor : currentPath === item.route;
-              const href = currentPath === "/" ? `/#${item.anchor}` : item.route;
+              const isActive = currentPath === item.route;
+              const href = item.route;
 
               return (
                 <Link
@@ -141,12 +93,7 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
                   href={href}
                   className="header-link"
                   data-active={isActive}
-                  onClick={() => {
-                    if (currentPath === "/") {
-                      setActiveSection(item.anchor);
-                    }
-                    setMenuOpen(false);
-                  }}
+                  onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
                 </Link>
@@ -154,7 +101,7 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
             })}
           </div>
 
-          <Link className="button button--gold" href={currentPath === "/" ? "/#contact" : "/contact"} onClick={() => setMenuOpen(false)}>
+          <Link className="button button--gold" href="/contact" onClick={() => setMenuOpen(false)}>
             Get a Quote
           </Link>
         </div>

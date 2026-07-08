@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ContactForm } from "@/components/contact-form";
 import { PageHero } from "@/components/page-hero";
 import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
 
@@ -14,11 +15,11 @@ export default function ContactPage() {
       <PageHero
         kicker="Contact"
         title="Start with a consultation, then move into a clean project handoff."
-        lead="Use the details below to reach the team directly. The form is intentionally simple so it can later connect to a backend or CRM without redesigning the page."
-        meta={["+63 917 190 1474", "jnrstoneworksinc@gmail.com", "Quezon City"]}
+        lead="Use the details below to reach the team directly. Inquiry submissions are delivered to our sales inbox with a branded email format."
+        meta={["+63 917 190 1474", "sales@jnrstoneworks.com", "Quezon City"]}
         actions={
           <>
-            <a className="button button--gold" href="mailto:jnrstoneworksinc@gmail.com">
+            <a className="button button--gold" href="mailto:sales@jnrstoneworks.com">
               Email the Team
             </a>
             <a className="button button--ghost" href="https://www.facebook.com" target="_blank" rel="noreferrer">
@@ -45,7 +46,7 @@ export default function ContactPage() {
                   <MailIcon width={18} height={18} />
                 </span>
                 <strong>Email</strong>
-                <p>jnrstoneworksinc@gmail.com</p>
+                <p>sales@jnrstoneworks.com</p>
               </article>
 
               <article className="contact-card">
@@ -65,23 +66,7 @@ export default function ContactPage() {
               </article>
             </div>
 
-            <form className="contact-form" aria-label="Contact form">
-              <label>
-                Name
-                <input type="text" name="name" placeholder="Your name" />
-              </label>
-              <label>
-                Email
-                <input type="email" name="email" placeholder="you@example.com" />
-              </label>
-              <label>
-                Project details
-                <textarea name="message" placeholder="Tell us about your countertop or surface project" />
-              </label>
-              <button type="button" className="button button--gold">
-                Send Inquiry
-              </button>
-            </form>
+            <ContactForm />
           </div>
 
           <div className="map-frame" aria-label="Estimated location map">

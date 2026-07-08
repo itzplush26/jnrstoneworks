@@ -104,13 +104,14 @@ main {
 }
 
 .section--dark::before {
-  background-image: url("/assets/logos/jnr-watermark.png");
-  background-size: 9.5rem;
-  background-repeat: repeat;
-  opacity: 0.065;
-  filter: sepia(1) saturate(2.4) brightness(1.2) hue-rotate(-8deg);
-  transform: rotate(-14deg) scale(1.2);
-  transform-origin: center;
+  background-image: url("/assets/logos/jnr-watermark.png"), url("/assets/logos/jnr-watermark.png");
+  background-size: 7.2rem 7.2rem, 7.2rem 7.2rem;
+  background-position: 0 0, 3.6rem 3.6rem;
+  background-repeat: repeat, repeat;
+  background-attachment: fixed, fixed;
+  opacity: 0.09;
+  filter: none;
+  transform: none;
 }
 
 .section--dark::after {
@@ -364,24 +365,15 @@ main {
 }
 
 .site-brand__text {
-  display: grid;
+  display: inline-flex;
   align-items: center;
-  line-height: 0.95;
-  color: rgba(245, 239, 230, 0.95);
+  line-height: 1.05;
+  color: var(--gold-strong);
   text-transform: uppercase;
   font-family: var(--font-brand), sans-serif;
-  letter-spacing: 0.03em;
-}
-
-.site-brand__text strong {
-  font-size: 1.08rem;
-  font-weight: 700;
-}
-
-.site-brand__text span {
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: rgba(201, 162, 75, 0.95);
+  letter-spacing: 0.08em;
+  font-size: 0.9rem;
+  font-weight: 400;
 }
 
 .footer__logo {
@@ -1536,25 +1528,13 @@ main {
 }
 
 .footer__brand-title {
-  display: grid;
-  gap: 0.12rem;
   font-family: var(--font-brand), sans-serif;
-  line-height: 1.15;
-  color: #1a1205;
-}
-
-.footer__brand-title strong {
-  font-size: 0.95rem;
-  font-weight: 700;
+  line-height: 1.1;
+  color: #0a0702;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.footer__brand-title span {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: rgba(20, 14, 4, 0.82);
+  letter-spacing: 0.08em;
+  font-size: 0.92rem;
+  font-weight: 400;
 }
 
 .footer__contacts {
@@ -1709,12 +1689,9 @@ main {
     max-width: 6.65rem;
   }
 
-  .site-brand__text strong {
-    font-size: 0.92rem;
-  }
-
-  .site-brand__text span {
-    font-size: 0.69rem;
+  .site-brand__text {
+    font-size: 0.78rem;
+    letter-spacing: 0.07em;
   }
 
   .footer__contacts p {

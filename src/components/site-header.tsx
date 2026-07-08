@@ -44,8 +44,7 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
             />
           </span>
           <span className="site-brand__text" aria-hidden>
-            <strong>JNR Stone Works</strong>
-            <span>Trading Inc.</span>
+            JNR Stone Works Trading Inc.
           </span>
         </Link>
 

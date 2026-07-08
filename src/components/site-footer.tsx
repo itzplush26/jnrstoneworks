@@ -11,15 +11,12 @@ export function SiteFooter() {
           <div className="footer__brand">
             <Image
               className="footer__logo"
-              src={ASSETS.logos.jnr}
+              src={ASSETS.logos.jnrSolidBlack}
               alt="JNR"
               width={40}
               height={40}
             />
-            <div className="footer__brand-title">
-              <strong>JNR Stone Works</strong>
-              <span>Trading Inc. · Official LX Hausys Distributor</span>
-            </div>
+            <div className="footer__brand-title">JNR Stone Works Trading Inc.</div>
           </div>
 
           <div className="footer__contacts" aria-label="Contact details">

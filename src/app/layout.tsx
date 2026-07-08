@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Hind, Manrope, Sora } from "next/font/google";
+import { Cormorant_Garamond, Forum, Manrope, Sora } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SITE_URL } from "@/data/site";
@@ -21,10 +21,10 @@ const accentFont = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
 });
 
-const brandFont = Hind({
+const brandFont = Forum({
   variable: "--font-brand",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {

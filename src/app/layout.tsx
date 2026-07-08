@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Hind, Manrope, Sora } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SITE_URL } from "@/data/site";
 import "./globals.css";
 
 const displayFont = Sora({
@@ -27,9 +28,14 @@ const brandFont = Hind({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "JNR Stone Works Trading Inc.",
   description:
     "Official LX Hausys distributor in Quezon City fabricating and installing premium HIMACS solid surface countertops.",
+  icons: {
+    icon: "/assets/logos/jnr-logo.png",
+    apple: "/assets/logos/jnr-logo.png",
+  },
 };
 
 export default function RootLayout({

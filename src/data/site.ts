@@ -7,6 +7,9 @@ export const NAV_ITEMS = [
   { label: "Contact", route: "/contact", anchor: "contact" },
 ] as const;
 
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "https://jnrstoneworks.com";
+
 export const HOME_SWATCHES = [
   {
     name: "Polar Silk",

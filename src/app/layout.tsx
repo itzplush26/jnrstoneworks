@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope, Sora } from "next/font/google";
+import { Cormorant_Garamond, Hind, Manrope, Sora } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
@@ -20,6 +20,12 @@ const accentFont = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
 });
 
+const brandFont = Hind({
+  variable: "--font-brand",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "JNR Stone Works Trading Inc.",
   description:
@@ -34,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${displayFont.variable} ${bodyFont.variable} ${accentFont.variable}`}
+      className={`${displayFont.variable} ${bodyFont.variable} ${accentFont.variable} ${brandFont.variable}`}
     >
       <body>
         <SiteHeader />

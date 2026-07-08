@@ -17,8 +17,7 @@ import {
   SparkIcon,
   ToolIcon,
 } from "@/components/icons";
-import himacsLogo from "../../himacslogo.png";
-import lxLogo from "../../lxhauyslogo.png";
+import { ASSETS } from "@/data/assets";
 
 export default function Home() {
   return (
@@ -26,7 +25,7 @@ export default function Home() {
       <section id="home" className="section section--dark hero">
         <div className="hero__panel">
           <div className="hero__copy">
-            <p className="hero__eyebrow">LX HAUSYS OFFICIAL DISTRIBUTOR</p>
+            <p className="hero__eyebrow">LX HAUSYS HIMACS® OFFICIAL DISTRIBUTOR</p>
             <h1 className="hero__headline">
               <span>Solid Surfaces.</span>
               <span>Timeless Spaces.</span>
@@ -47,8 +46,15 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="hero__visual" aria-hidden="true">
-            <span className="media-caption">photo placeholder - kitchen island, himacs white</span>
+          <div className="hero__visual">
+            <Image
+              className="hero__visual-image"
+              src={ASSETS.images.islandPlaceholder}
+              alt="Kitchen island finished in HIMACS solid surface"
+              fill
+              sizes="(max-width: 1120px) 100vw, 50vw"
+              priority
+            />
           </div>
         </div>
 
@@ -70,7 +76,7 @@ export default function Home() {
                 <div className="lx-logo-crop">
                   <Image
                     className="brand-logo brand-logo--lx"
-                    src={lxLogo}
+                    src={ASSETS.logos.lxHausys}
                     alt="LX Hausys"
                     width={500}
                     height={500}
@@ -81,7 +87,7 @@ export default function Home() {
               <div className="product-himacs-lockup">
                 <Image
                   className="brand-logo brand-logo--himacs"
-                  src={himacsLogo}
+                  src={ASSETS.logos.himacs}
                   alt="HIMACS Solid Surface"
                   width={416}
                   height={121}
@@ -148,7 +154,7 @@ export default function Home() {
             <div className="process-headline">
               <span className="section__eyebrow">Process</span>
               <h2>WE FABRICATE. WE INSTALL.</h2>
-              <p className="accent-copy">Built with Precision, Delivered with Pride.</p>
+              <p className="accent-copy">Built with Precision. Delivered with Pride.</p>
             </div>
 
             <div className="split-panels">
@@ -170,8 +176,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="process-media" aria-hidden="true">
-            <span className="media-caption">photo placeholder - installation detail</span>
+          <div className="process-media">
+            <Image
+              className="process-media__image"
+              src={ASSETS.images.processPlaceholder}
+              alt="HIMACS solid surface installation detail"
+              fill
+              sizes="(max-width: 1120px) 100vw, 45vw"
+            />
           </div>
         </div>
       </section>

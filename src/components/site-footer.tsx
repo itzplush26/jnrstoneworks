@@ -1,34 +1,40 @@
 import Image from "next/image";
 import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
-import jnrLogo from "../../jnrlogonobg.png";
+import { ASSETS } from "@/data/assets";
 
 export function SiteFooter() {
   return (
     <footer className="footer">
+      <div className="footer__sheen" aria-hidden="true" />
       <div className="footer__inner">
-        <div className="footer__grid">
+        <div className="footer__row">
           <div className="footer__brand">
-            <Image className="footer__logo" src={jnrLogo} alt="JNR Stone Works Trading Inc." />
-            <span>Official LX Hausys distributor</span>
-            <p className="muted">
-              Premium HIMACS solid surface countertops for kitchens, vanities, and
-              commercial environments across Metro Manila.
-            </p>
+            <Image
+              className="footer__logo"
+              src={ASSETS.logos.jnr}
+              alt="JNR"
+              width={40}
+              height={40}
+            />
+            <div className="footer__brand-title">
+              <strong>JNR Stone Works</strong>
+              <span>Trading Inc. · Official LX Hausys Distributor</span>
+            </div>
           </div>
 
           <div className="footer__contacts" aria-label="Contact details">
             <p>
-              <PhoneIcon width={18} height={18} /> +63 917 190 1474
+              <PhoneIcon width={15} height={15} /> +63 917 190 1474
             </p>
             <p>
-              <MailIcon width={18} height={18} /> jnrstoneworksinc@gmail.com
+              <MailIcon width={15} height={15} /> sales@jnrstoneworks.com
             </p>
             <p>
-              <MapPinIcon width={18} height={18} /> 7F Victoria Sports Tower, 799 EDSA Brgy. South Triangle,
-              Quezon City 1103
+              <MapPinIcon width={15} height={15} /> 7F Victoria Sports Tower, 799 EDSA Brgy.
+              South Triangle, Quezon City 1103
             </p>
             <p>
-              <FacebookIcon width={18} height={18} />
+              <FacebookIcon width={15} height={15} />
               <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
                 JNR Stone Works Trading Inc.
               </a>

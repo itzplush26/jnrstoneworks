@@ -10,7 +10,7 @@ type PageHeroProps = {
 
 export function PageHero({ kicker, title, lead, meta, actions }: PageHeroProps) {
   return (
-    <section className="page-hero">
+    <section className="page-hero section section--dark">
       <div className="section__inner page-heading">
         <span className="page-heading__kicker">{kicker}</span>
         <h1>{title}</h1>

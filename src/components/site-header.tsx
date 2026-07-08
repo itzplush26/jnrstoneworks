@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ASSETS } from "@/data/assets";
 import { NAV_ITEMS } from "@/data/site";
-import jnrLogo from "../../jnrlogonobg.png";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -33,14 +33,20 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
     <header className="site-header" data-scrolled={scrolled}>
       <div className="site-header__inner">
         <Link className="site-brand" href="/" aria-label="JNR Stone Works Trading Inc. home">
-          <Image
-            className="site-brand__logo"
-            src={jnrLogo}
-            alt="JNR Stone Works Trading Inc."
-            width={1000}
-            height={1000}
-            priority
-          />
+          <span className="site-brand__mark">
+            <Image
+              className="site-brand__logo"
+              src={ASSETS.logos.jnr}
+              alt="JNR"
+              width={300}
+              height={296}
+              priority
+            />
+          </span>
+          <span className="site-brand__text" aria-hidden>
+            <strong>JNR Stone Works</strong>
+            <span>Trading Inc.</span>
+          </span>
         </Link>
 
         <nav className="site-header__nav" aria-label="Primary navigation">
@@ -50,12 +56,7 @@ function HeaderContent({ currentPath }: { currentPath: string }) {
               const href = item.route;
 
               return (
-                <Link
-                  key={item.label}
-                  href={href}
-                  className="header-link"
-                  data-active={isActive}
-                >
+                <Link key={item.label} href={href} className="header-link" data-active={isActive}>
                   {item.label}
                 </Link>
               );

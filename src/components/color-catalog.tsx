@@ -2,12 +2,11 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { COLOR_SERIES, COLOR_SWATCHES, COLOR_THICKNESSES, COLOR_TONES } from "@/data/site";
+import { COLOR_SERIES, COLOR_SWATCHES, COLOR_TONES } from "@/data/site";
 
 export function ColorCatalog() {
   const [tone, setTone] = useState<(typeof COLOR_TONES)[number]["value"]>("all");
   const [series, setSeries] = useState<(typeof COLOR_SERIES)[number]["value"]>("all");
-  const [thickness, setThickness] = useState<(typeof COLOR_THICKNESSES)[number]["value"]>("all");
   const [query, setQuery] = useState("");
 
   useEffect(() => {
@@ -21,20 +20,18 @@ export function ColorCatalog() {
     return COLOR_SWATCHES.filter((item) => {
       const byTone = tone === "all" || item.tone === tone;
       const bySeries = series === "all" || item.series === series;
-      const byThickness = thickness === "all" || item.thickness.some((size) => size === thickness);
       const byQuery =
         !loweredQuery ||
         item.name.toLowerCase().includes(loweredQuery) ||
         item.code.toLowerCase().includes(loweredQuery);
 
-      return byTone && bySeries && byThickness && byQuery;
+      return byTone && bySeries && byQuery;
     });
-  }, [tone, series, thickness, query]);
+  }, [tone, series, query]);
 
   function resetFilters() {
     setTone("all");
     setSeries("all");
-    setThickness("all");
     setQuery("");
   }
 
@@ -63,17 +60,6 @@ export function ColorCatalog() {
           </select>
         </label>
 
-        <label className="color-filter-field">
-          Thickness
-          <select value={thickness} onChange={(event) => setThickness(event.target.value as typeof thickness)}>
-            {COLOR_THICKNESSES.map((item) => (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
         <label className="color-filter-field color-filter-field--search">
           Search color or code
           <input
@@ -93,7 +79,6 @@ export function ColorCatalog() {
         <span>Active:</span>
         <span>{COLOR_TONES.find((item) => item.value === tone)?.label}</span>
         <span>{COLOR_SERIES.find((item) => item.value === series)?.label}</span>
-        <span>{COLOR_THICKNESSES.find((item) => item.value === thickness)?.label}</span>
         <span>{query ? `Search: ${query}` : "Search: none"}</span>
       </div>
 
@@ -132,7 +117,7 @@ export function ColorCatalog() {
 
       {!visibleSwatches.length ? (
         <p className="story-line">
-          No colors match the current filters. Try changing tone, series, thickness, or search text.
+          No colors match the current filters. Try changing tone, series, or search text.
         </p>
       ) : null}
     </div>

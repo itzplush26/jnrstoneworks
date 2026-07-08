@@ -104,12 +104,12 @@ main {
 }
 
 .section--dark::before {
-  background-image: url("/assets/logos/jnr-watermark.png"), url("/assets/logos/jnr-watermark.png");
-  background-size: 7.2rem 7.2rem, 7.2rem 7.2rem;
-  background-position: 0 0, 3.6rem 3.6rem;
-  background-repeat: repeat, repeat;
-  background-attachment: fixed, fixed;
-  opacity: 0.09;
+  background-image: url("/assets/logos/jnr-watermarknew.png");
+  background-size: 7.4rem;
+  background-position: 0 0;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  opacity: 0.015;
   filter: none;
   transform: none;
 }
@@ -1235,7 +1235,7 @@ main {
 
 .color-catalog__toolbar {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.75rem;
 }
 

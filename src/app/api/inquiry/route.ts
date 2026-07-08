@@ -52,7 +52,7 @@ function buildInquiryHtml(data: { name: string; email: string; message: string }
             <tr>
               <td style="padding:24px 28px 8px;">
                 <p style="margin:0 0 6px;font-size:11px;letter-spacing:0.34em;text-transform:uppercase;color:#d4af37;">
-                  New Website Inquiry
+                  Jnr Web Inquiry
                 </p>
                 <h1 style="margin:0;font-size:28px;line-height:1.1;color:#fff8ea;">
                   JNR Stone Works Trading Inc.
@@ -153,12 +153,12 @@ export async function POST(request: Request) {
       },
     });
 
-    const subject = `New inquiry from ${name}`;
-    const textBody = `New inquiry received\n\nName: ${name}\nEmail: ${email}\n\nProject details:\n${message}\n\nReply to the client at ${email}.`;
+    const subject = `Jnr Web Inquiry — ${name}`;
+    const textBody = `Jnr Web Inquiry\n\nName: ${name}\nEmail: ${email}\n\nProject details:\n${message}\n\nReply to the client at ${email}.`;
 
     await transporter.sendMail({
       from: {
-        name: "JNR Website Inquiry",
+        name: "Jnr Web Inquiry",
         address: fromAddress,
       },
       to: toAddress,

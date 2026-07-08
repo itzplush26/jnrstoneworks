@@ -14,9 +14,9 @@ export default function ColorsPage() {
     <main>
       <PageHero
         kicker="Colors"
-        title="HIMACS solid surface swatches for refined interiors."
-        lead="Filter the catalog by tone to compare whites, beiges, greys, and blacks that suit residential and commercial projects."
-        meta={["Filter by tone", "Fast-loading placeholder catalog", "Designed for future product photography"]}
+        title="HIMACS color catalog with real swatches and material specs."
+        lead="Browse the curated HIMACS lineup and filter by tone, collection series, slab thickness, or color code to find the right surface faster."
+        meta={["Real catalog swatches", "Series + thickness filters", "Code and Δ E5 spec tags"]}
         actions={
           <>
             <Link className="button button--gold" href="/contact">
@@ -32,8 +32,8 @@ export default function ColorsPage() {
       <section className="section section--cream content-block">
         <div className="section__inner grid" style={{ gap: "1.2rem" }}>
           <p className="story-line">
-            The catalog below uses placeholder swatch renders for now, giving the site a polished visual
-            system while leaving room for real product photography later.
+            Swatches and codes are based on the official HIMACS catalog references you provided. Actual
+            slab appearance can vary slightly by screen and lighting conditions.
           </p>
 
           <ColorCatalog />

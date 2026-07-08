@@ -111,13 +111,19 @@ export default function Home() {
                   key={swatch.name}
                   className="swatch-card"
                   style={{
-                    background: swatch.gradient,
                     ["--swatch-left" as never]: `${index * 1.65}rem`,
                     ["--swatch-top" as never]: `${index * 0.9}rem`,
                     ["--swatch-rotate" as never]: `${index * 4 - 8}deg`,
                     ["--swatch-index" as never]: String(index + 1),
                   }}
                 >
+                  <Image
+                    className="swatch-card__image"
+                    src={swatch.image}
+                    alt={`${swatch.name} HIMACS swatch`}
+                    fill
+                    sizes="(max-width: 920px) 36vw, 15vw"
+                  />
                   <span className="swatch-card__tone">{swatch.name}</span>
                 </article>
               ))}

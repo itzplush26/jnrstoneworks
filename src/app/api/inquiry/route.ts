@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { checkInquiryRateLimit, getClientIp } from "@/lib/inquiry-rate-limit";
 
 export const runtime = "nodejs";
 
@@ -6,7 +7,10 @@ type InquiryPayload = {
   name?: string;
   email?: string;
   message?: string;
+  website?: string;
 };
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function escapeHtml(value: string) {
   return value
@@ -15,6 +19,22 @@ function escapeHtml(value: string) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function resolveNotificationRecipient(smtpUser: string): string {
+  const configuredTo = process.env.CONTACT_TO_EMAIL?.trim();
+
+  if (configuredTo) {
+    return configuredTo;
+  }
+
+  // Avoid ImprovMX round-trip when Gmail SMTP sends to its own alias — that loop
+  // rewrites Message-ID, breaks DMARC alignment, and lands in spam.
+  if (smtpUser.includes("@gmail.com") || smtpUser.includes("@googlemail.com")) {
+    return smtpUser;
+  }
+
+  return "sales@jnrstoneworks.com";
 }
 
 function buildInquiryHtml(data: { name: string; email: string; message: string }) {
@@ -48,7 +68,9 @@ function buildInquiryHtml(data: { name: string; email: string; message: string }
                   </tr>
                   <tr>
                     <td style="padding:12px 0;border-bottom:1px solid rgba(201,162,75,0.2);font-size:14px;color:#ccb788;">Client Email</td>
-                    <td style="padding:12px 0;border-bottom:1px solid rgba(201,162,75,0.2);font-size:15px;color:#fff8ea;text-align:right;">${safeEmail}</td>
+                    <td style="padding:12px 0;border-bottom:1px solid rgba(201,162,75,0.2);font-size:15px;color:#fff8ea;text-align:right;">
+                      <a href="mailto:${safeEmail}" style="color:#fff8ea;text-decoration:none;">${safeEmail}</a>
+                    </td>
                   </tr>
                 </table>
                 <div style="margin-top:18px;padding:14px 16px;border:1px solid rgba(201,162,75,0.2);background:rgba(255,255,255,0.03);border-radius:8px;">
@@ -72,19 +94,45 @@ export async function POST(request: Request) {
   try {
     const payload = (await request.json()) as InquiryPayload;
     const name = (payload.name ?? "").trim();
-    const email = (payload.email ?? "").trim();
+    const email = (payload.email ?? "").trim().toLowerCase();
     const message = (payload.message ?? "").trim();
+    const honeypot = (payload.website ?? "").trim();
+
+    if (honeypot) {
+      return Response.json({ ok: true });
+    }
 
     if (!name || !email || !message) {
       return Response.json({ error: "Name, email, and project details are required." }, { status: 400 });
+    }
+
+    if (!EMAIL_PATTERN.test(email) || name.length > 120 || message.length > 4000) {
+      return Response.json({ error: "Please check your details and try again." }, { status: 400 });
+    }
+
+    const clientIp = getClientIp(request);
+    const rateLimit = checkInquiryRateLimit(`${clientIp}:${email}`);
+
+    if (!rateLimit.allowed) {
+      return Response.json(
+        {
+          error:
+            "You can send up to 3 inquiries per day. Please try again tomorrow or contact us by phone at +63 917 190 1474.",
+        },
+        {
+          status: 429,
+          headers: rateLimit.retryAfterSeconds
+            ? { "Retry-After": String(rateLimit.retryAfterSeconds) }
+            : undefined,
+        },
+      );
     }
 
     const smtpHost = process.env.SMTP_HOST;
     const smtpPort = Number(process.env.SMTP_PORT ?? "465");
     const smtpUser = process.env.SMTP_USER;
     const smtpPass = process.env.SMTP_PASS;
-    const toAddress = process.env.CONTACT_TO_EMAIL ?? "sales@jnrstoneworks.com";
-    const fromAddress = process.env.CONTACT_FROM_EMAIL ?? "sales@jnrstoneworks.com";
+    const fromAddress = process.env.CONTACT_FROM_EMAIL?.trim() || "sales@jnrstoneworks.com";
 
     if (!smtpHost || !smtpUser || !smtpPass) {
       return Response.json(
@@ -92,6 +140,8 @@ export async function POST(request: Request) {
         { status: 500 },
       );
     }
+
+    const toAddress = resolveNotificationRecipient(smtpUser);
 
     const transporter = nodemailer.createTransport({
       host: smtpHost,
@@ -104,15 +154,28 @@ export async function POST(request: Request) {
     });
 
     const subject = `New inquiry from ${name}`;
-    const textBody = `New inquiry received\n\nName: ${name}\nEmail: ${email}\n\nProject details:\n${message}`;
+    const textBody = `New inquiry received\n\nName: ${name}\nEmail: ${email}\n\nProject details:\n${message}\n\nReply to the client at ${email}.`;
 
     await transporter.sendMail({
-      from: `JNR Website Inquiry <${fromAddress}>`,
+      from: {
+        name: "JNR Website Inquiry",
+        address: fromAddress,
+      },
       to: toAddress,
-      replyTo: email,
+      replyTo: {
+        name,
+        address: email,
+      },
+      envelope: {
+        from: smtpUser,
+        to: toAddress,
+      },
       subject,
       text: textBody,
       html: buildInquiryHtml({ name, email, message }),
+      headers: {
+        "X-Entity-Ref-ID": `inquiry-${Date.now()}`,
+      },
     });
 
     return Response.json({ ok: true });

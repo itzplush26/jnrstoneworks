@@ -2,6 +2,7 @@ export const ASSETS = {
   logos: {
     jnr: "/assets/logos/jnr-logo.png",
     jnrWatermark: "/assets/logos/jnr-watermark.png",
+    jnrSolidBlack: "/assets/logos/jnrlogosolidblack.png",
     himacs: "/assets/logos/himacs-logo.png",
     lxHausys: "/assets/logos/lx-hausys-logo.png",
   },

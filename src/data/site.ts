@@ -30,16 +30,16 @@ export const HOME_SWATCHES = [
     image: "/assets/colors/aurora-canyon-m705.jpg",
   },
   {
-    name: "Sanremo",
+    name: "Aurora Sanremo",
     tone: "beige",
     description: "Soft neutral marble look for understated luxury.",
     image: "/assets/colors/sanremo-m605.jpg",
   },
   {
-    name: "Aurora Umber",
-    tone: "beige",
-    description: "Richer earth-toned marble effect with bold character.",
-    image: "/assets/colors/aurora-umber-m614.jpg",
+    name: "Terrazzo Ulivo",
+    tone: "patterned",
+    description: "Distinct terrazzo aggregate look for standout focal surfaces.",
+    image: "/assets/colors/terrazzo-ulivo-q102.jpg",
   },
 ] as const;
 
@@ -92,16 +92,6 @@ export const COLOR_SWATCHES = [
     thicknessLabel: "12/6 mm",
     deltaE5: false,
     image: "/assets/colors/crystal-beige-g101.jpg",
-  },
-  {
-    name: "Grey Sand",
-    code: "G002",
-    tone: "grey",
-    series: "Granite",
-    thickness: ["12 mm"],
-    thicknessLabel: "12 mm",
-    deltaE5: true,
-    image: "/assets/colors/grey-sand-g002.png",
   },
   {
     name: "Arctic Granite",

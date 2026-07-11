@@ -784,6 +784,39 @@ main {
     linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.2) 100%);
 }
 
+.swatch-card--light {
+  border-color: rgba(245, 239, 230, 0.36);
+}
+
+.swatch-card--light::before {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.36), transparent 42%),
+    linear-gradient(180deg, transparent 0, rgba(6, 6, 6, 0.1) 100%);
+}
+
+.swatch-card--light .swatch-card__tone {
+  border-color: rgba(32, 24, 12, 0.18);
+  background: rgba(248, 241, 228, 0.84);
+  color: rgba(24, 17, 8, 0.88);
+  text-shadow: none;
+}
+
+.swatch-card--dark {
+  border-color: rgba(201, 162, 75, 0.3);
+}
+
+.swatch-card--dark::before {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.14), transparent 44%),
+    linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.36) 100%);
+}
+
+.swatch-card--dark .swatch-card__tone {
+  border-color: rgba(201, 162, 75, 0.28);
+  background: rgba(8, 8, 8, 0.68);
+  color: rgba(245, 239, 230, 0.92);
+}
+
 .swatch-card__image {
   object-fit: cover;
   object-position: center;

@@ -108,7 +108,7 @@ export default function Home() {
               {HOME_SWATCHES.map((swatch, index) => (
                 <article
                   key={swatch.name}
-                  className="swatch-card"
+                  className={`swatch-card ${index % 2 === 0 ? "swatch-card--light" : "swatch-card--dark"}`}
                   style={{
                     ["--swatch-left" as never]: `${index * 1.65}rem`,
                     ["--swatch-top" as never]: `${index * 0.9}rem`,

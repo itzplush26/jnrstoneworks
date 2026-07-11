@@ -96,8 +96,7 @@ export default function Home() {
               <p className="accent-copy">Elegant. Durable. Non-porous. Limitless design possibilities.</p>
             </div>
             <p className="story-line">
-              JNR Stone Works Trading Inc. brings the brand into refined residential and commercial
-              spaces with clean fabrication, consistent finishes, and dependable installation.
+            JNR Stone Works Trading Inc. transforms residential and commercial spaces with expertly fabricated HIMACS® solid surface solutions, delivering seamless finishes, exceptional craftsmanship, and reliable installation.
             </p>
             <Link className="button button--cream" href="/colors">
               View Color Catalog
@@ -244,12 +243,10 @@ export default function Home() {
           <div className="about-copy">
             <div className="about-headline">
               <span className="section__eyebrow">About Us</span>
-              <h2>Designed for interiors that want calm, precision, and presence.</h2>
+              <h2>Crafting Seamless Spaces. Building Lasting Impressions.</h2>
             </div>
-            <p className="story-line">
-              JNR Stone Works Trading Inc. combines distributor access, fabrication discipline, and
-              installation expertise so every surface feels intentional. The result is a project flow
-              that stays clean from drawing board to final polishing.
+            <p className="story-line">  
+            JNR Stone Works Trading Inc. brings together years of solid surface expertise, skilled craftsmanship, and meticulous attention to detail to create seamless spaces that stand the test of time. Specializing in the fabrication and installation of HIMACS® solid surface countertops, we deliver quality, durability, and precision for every residential and commercial project.
             </p>
           </div>
 

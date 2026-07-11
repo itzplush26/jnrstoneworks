@@ -4,9 +4,9 @@ import {
   ABOUT_STATS,
   FEATURE_ITEMS,
   GALLERY_ITEMS,
-  HOME_SWATCHES,
   WHY_CHOOSE_ITEMS,
 } from "@/data/site";
+import { HomeSwatchCarousel } from "@/components/home-swatch-carousel";
 import {
   ArrowRightIcon,
   CheckIcon,
@@ -103,31 +103,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="swatch-stage" aria-label="HIMACS material swatches">
-            <div className="swatch-stack">
-              {HOME_SWATCHES.map((swatch, index) => (
-                <article
-                  key={swatch.name}
-                  className={`swatch-card ${index % 2 === 0 ? "swatch-card--light" : "swatch-card--dark"}`}
-                  style={{
-                    ["--swatch-left" as never]: `${index * 1.65}rem`,
-                    ["--swatch-top" as never]: `${index * 0.9}rem`,
-                    ["--swatch-rotate" as never]: `${index * 4 - 8}deg`,
-                    ["--swatch-index" as never]: String(index + 1),
-                  }}
-                >
-                  <Image
-                    className="swatch-card__image"
-                    src={swatch.image}
-                    alt={`${swatch.name} HIMACS swatch`}
-                    fill
-                    sizes="(max-width: 920px) 36vw, 15vw"
-                  />
-                  <span className="swatch-card__tone">{swatch.name}</span>
-                </article>
-              ))}
-            </div>
-          </div>
+          <HomeSwatchCarousel />
         </div>
 
         <div className="section__inner grid" style={{ marginTop: "1.5rem" }}>

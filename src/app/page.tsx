@@ -221,21 +221,37 @@ export default function Home() {
               <span className="section__eyebrow">About Us</span>
               <h2>Crafting Seamless Spaces. Building Lasting Impressions.</h2>
             </div>
-            <p className="story-line">  
-            JNR Stone Works Trading Inc. brings together years of solid surface expertise, skilled craftsmanship, and meticulous attention to detail to create seamless spaces that stand the test of time. Specializing in the fabrication and installation of HIMACS® solid surface countertops, we deliver quality, durability, and precision for every residential and commercial project.
+            <p className="story-line">
+              JNR Stone Works Trading Inc. brings together years of solid surface expertise, skilled
+              craftsmanship, and meticulous attention to detail to create seamless spaces that stand the
+              test of time. Specializing in the fabrication and installation of HIMACS® solid surface
+              countertops, we deliver quality, durability, and precision for every residential and
+              commercial project.
             </p>
+            <div className="action-row" style={{ marginTop: "0.4rem" }}>
+              <Link className="button button--gold" href="/contact">
+                Talk to the Team
+              </Link>
+              <Link className="button button--cream" href="/about-us">
+                Learn More About Us
+              </Link>
+            </div>
           </div>
 
           <div className="home-about">
-            {ABOUT_STATS.map((item) => (
-              <article key={item.value} className="about-stat">
-                <span className="about-stat__icon">
-                  <ShieldIcon width={18} height={18} />
-                </span>
-                <strong>{item.value}</strong>
-                <p>{item.label}</p>
-              </article>
-            ))}
+            {ABOUT_STATS.map((item, index) => {
+              const Icon = [ShieldIcon, SparkIcon, ToolIcon][index] ?? ShieldIcon;
+
+              return (
+                <article key={item.value} className="about-stat">
+                  <span className="about-stat__icon">
+                    <Icon width={18} height={18} />
+                  </span>
+                  <strong>{item.value}</strong>
+                  <p>{item.label}</p>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

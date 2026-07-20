@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/page-hero";
 import { SERVICE_ITEMS } from "@/data/site";
-import { CheckIcon, LeafIcon, ShieldIcon, ToolIcon } from "@/components/icons";
+import { CheckIcon, LeafIcon, ShieldIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Services | JNR Stone Works Trading Inc.",
   description:
-    "Fabrication, installation, custom design, and maintenance services for HIMACS solid surface projects in the Philippines.",
+    "Fabrication, installation, and custom design services for HIMACS solid surface projects in the Philippines.",
 };
 
 export default function ServicesPage() {
-  const serviceIcons = [ToolIcon, ShieldIcon, LeafIcon, CheckIcon] as const;
+  const serviceIcons = [ShieldIcon, LeafIcon, CheckIcon] as const;
 
   return (
     <main>
@@ -19,7 +19,7 @@ export default function ServicesPage() {
         kicker="Services"
         title="Fabrication, installation, and support shaped around the project."
         lead="JNR Stone Works Trading Inc. balances precision shop work with field-ready installation so clients can keep momentum from proposal to turnover."
-        meta={["Fabrication", "Installation", "Custom Design", "Repairs & Maintenance"]}
+        meta={["Fabrication", "Installation", "Custom Design"]}
         actions={
           <>
             <Link className="button button--gold" href="/contact">
@@ -34,7 +34,7 @@ export default function ServicesPage() {
 
       <section className="section section--dark content-block">
         <div className="section__inner service-grid">
-          {SERVICE_ITEMS.map((item, index) => {
+          {SERVICE_ITEMS.slice(0, 3).map((item, index) => {
             const Icon = serviceIcons[index];
 
             return (

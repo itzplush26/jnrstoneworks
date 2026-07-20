@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/page-hero";
-import { ABOUT_STATS } from "@/data/site";
+import { ABOUT_COPY, ABOUT_STATS } from "@/data/site";
+import { ASSETS } from "@/data/assets";
 import { ShieldIcon, SparkIcon, ToolIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
@@ -27,14 +28,30 @@ export default function AboutUsPage() {
     <main>
       <PageHero
         kicker="About Us"
-        title="A fabrication partner with distributor credentials and a design-led mindset."
-        lead="JNR Stone Works Trading Inc. focuses on premium solid surface projects that feel effortless to specify, fabricate, and install."
+        title={ABOUT_COPY.title}
+        lead={ABOUT_COPY.lead}
         meta={["Official LX Hausys distributor", "Quezon City", "HIMACS solid surface"]}
         actions={
           <>
             <Link className="button button--gold" href="/contact">
               Talk to the Team
             </Link>
+            <a
+              className="button button--ghost"
+              href={ASSETS.docs.certifications}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Certifications
+            </a>
+            <a
+              className="button button--ghost"
+              href={ASSETS.docs.performanceProperties}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Product Performance Properties
+            </a>
             <Link className="button button--ghost" href="/gallery">
               Browse Projects
             </Link>
@@ -42,7 +59,7 @@ export default function AboutUsPage() {
         }
       />
 
-      <section className="section section--cream content-block">
+      <section className="section section--dark content-block">
         <div className="section__inner grid" style={{ gap: "1.2rem" }}>
           <div className="home-about">
             {ABOUT_STATS.map((item, index) => {

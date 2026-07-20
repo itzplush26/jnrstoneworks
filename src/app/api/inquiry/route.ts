@@ -6,11 +6,13 @@ export const runtime = "nodejs";
 type InquiryPayload = {
   name?: string;
   email?: string;
+  phone?: string;
   message?: string;
   website?: string;
 };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_PATTERN = /^[+()\d\s.-]{7,40}$/;
 
 function escapeHtml(value: string) {
   return value
@@ -37,10 +39,12 @@ function resolveNotificationRecipient(smtpUser: string): string {
   return "sales@jnrstoneworks.com";
 }
 
-function buildInquiryHtml(data: { name: string; email: string; message: string }) {
+function buildInquiryHtml(data: { name: string; email: string; phone: string; message: string }) {
   const safeName = escapeHtml(data.name);
   const safeEmail = escapeHtml(data.email);
+  const safePhone = escapeHtml(data.phone);
   const safeMessage = escapeHtml(data.message).replaceAll("\n", "<br />");
+  const phoneHref = data.phone.replaceAll(/\s+/g, "");
 
   return `<!doctype html>
 <html>
@@ -72,6 +76,12 @@ function buildInquiryHtml(data: { name: string; email: string; message: string }
                       <a href="mailto:${safeEmail}" style="color:#fff8ea;text-decoration:none;">${safeEmail}</a>
                     </td>
                   </tr>
+                  <tr>
+                    <td style="padding:12px 0;border-bottom:1px solid rgba(201,162,75,0.2);font-size:14px;color:#ccb788;">Contact Number</td>
+                    <td style="padding:12px 0;border-bottom:1px solid rgba(201,162,75,0.2);font-size:15px;color:#fff8ea;text-align:right;">
+                      <a href="tel:${escapeHtml(phoneHref)}" style="color:#fff8ea;text-decoration:none;">${safePhone}</a>
+                    </td>
+                  </tr>
                 </table>
                 <div style="margin-top:18px;padding:14px 16px;border:1px solid rgba(201,162,75,0.2);background:rgba(255,255,255,0.03);border-radius:8px;">
                   <p style="margin:0 0 10px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#d4af37;">Project Details</p>
@@ -95,6 +105,7 @@ export async function POST(request: Request) {
     const payload = (await request.json()) as InquiryPayload;
     const name = (payload.name ?? "").trim();
     const email = (payload.email ?? "").trim().toLowerCase();
+    const phone = (payload.phone ?? "").trim();
     const message = (payload.message ?? "").trim();
     const honeypot = (payload.website ?? "").trim();
 
@@ -102,11 +113,20 @@ export async function POST(request: Request) {
       return Response.json({ ok: true });
     }
 
-    if (!name || !email || !message) {
-      return Response.json({ error: "Name, email, and project details are required." }, { status: 400 });
+    if (!name || !email || !phone || !message) {
+      return Response.json(
+        { error: "Name, email, contact number, and project details are required." },
+        { status: 400 },
+      );
     }
 
-    if (!EMAIL_PATTERN.test(email) || name.length > 120 || message.length > 4000) {
+    if (
+      !EMAIL_PATTERN.test(email) ||
+      !PHONE_PATTERN.test(phone) ||
+      name.length > 120 ||
+      phone.length > 40 ||
+      message.length > 4000
+    ) {
       return Response.json({ error: "Please check your details and try again." }, { status: 400 });
     }
 
@@ -117,7 +137,7 @@ export async function POST(request: Request) {
       return Response.json(
         {
           error:
-            "You can send up to 3 inquiries per day. Please try again tomorrow or contact us by phone at +63 917 190 1474.",
+            "You can send up to 3 inquiries per day. Please try again tomorrow or contact us by phone at +63 917 190 1474 / +63 915 622 0335 / +63 915 671 0466.",
         },
         {
           status: 429,
@@ -154,7 +174,7 @@ export async function POST(request: Request) {
     });
 
     const subject = `Jnr Web Inquiry — ${name}`;
-    const textBody = `Jnr Web Inquiry\n\nName: ${name}\nEmail: ${email}\n\nProject details:\n${message}\n\nReply to the client at ${email}.`;
+    const textBody = `Jnr Web Inquiry\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nProject details:\n${message}\n\nReply to the client at ${email}.`;
 
     await transporter.sendMail({
       from: {
@@ -172,7 +192,7 @@ export async function POST(request: Request) {
       },
       subject,
       text: textBody,
-      html: buildInquiryHtml({ name, email, message }),
+      html: buildInquiryHtml({ name, email, phone, message }),
       headers: {
         "X-Entity-Ref-ID": `inquiry-${Date.now()}`,
       },

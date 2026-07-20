@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
 import { ASSETS } from "@/data/assets";
+import { CONTACT_EMAIL, CONTACT_PHONES } from "@/data/site";
 
 export function SiteFooter() {
   return (
@@ -20,11 +21,14 @@ export function SiteFooter() {
           </div>
 
           <div className="footer__contacts" aria-label="Contact details">
+            {CONTACT_PHONES.map((phone) => (
+              <p key={phone}>
+                <PhoneIcon width={15} height={15} />{" "}
+                <a href={`tel:${phone.replaceAll(" ", "")}`}>{phone}</a>
+              </p>
+            ))}
             <p>
-              <PhoneIcon width={15} height={15} /> +63 917 190 1474
-            </p>
-            <p>
-              <MailIcon width={15} height={15} /> sales@jnrstoneworks.com
+              <MailIcon width={15} height={15} /> {CONTACT_EMAIL}
             </p>
             <p>
               <MapPinIcon width={15} height={15} /> 7F Victoria Sports Tower, 799 EDSA Brgy.
@@ -32,7 +36,7 @@ export function SiteFooter() {
             </p>
             <p>
               <FacebookIcon width={15} height={15} />
-              <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
+              <a href="https://www.facebook.com/jnrstoneworkstradinginc" target="_blank" rel="noreferrer">
                 JNR Stone Works Trading Inc.
               </a>
             </p>

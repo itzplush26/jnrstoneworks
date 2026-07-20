@@ -10,4 +10,8 @@ export const ASSETS = {
     islandPlaceholder: "/assets/images/island-placeholder.jpg",
     processPlaceholder: "/assets/images/process-placeholder.png",
   },
+  docs: {
+    certifications: "/assets/docs/jnrstoneworks-certification.pdf",
+    performanceProperties: "/assets/docs/himacs-performance-properties.pdf",
+  },
 } as const;

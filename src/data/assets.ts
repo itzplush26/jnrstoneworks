@@ -11,7 +11,7 @@ export const ASSETS = {
     processPlaceholder: "/assets/images/process-placeholder.png",
   },
   docs: {
-    certifications: "/assets/docs/jnrstoneworks-certification.pdf",
-    performanceProperties: "/assets/docs/himacs-performance-properties.pdf",
+    certifications: "/assets/docs/jnrstoneworks-certification-new.pdf",
+    performanceProperties: "/assets/docs/himacs-performance-properties-new.pdf",
   },
 } as const;

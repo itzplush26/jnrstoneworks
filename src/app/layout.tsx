@@ -32,10 +32,6 @@ export const metadata: Metadata = {
   title: "JNR Stone Works Trading Inc.",
   description:
     "Official LX Hausys distributor in Quezon City fabricating and installing premium HIMACS solid surface countertops.",
-  icons: {
-    icon: "/assets/logos/jnr-logo.png",
-    apple: "/assets/logos/jnr-logo.png",
-  },
 };
 
 export default function RootLayout({

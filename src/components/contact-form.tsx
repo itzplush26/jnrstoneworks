@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 type FormState = {
   name: string;
   email: string;
+  phone: string;
   message: string;
   website: string;
 };
@@ -12,6 +13,7 @@ type FormState = {
 const initialState: FormState = {
   name: "",
   email: "",
+  phone: "",
   message: "",
   website: "",
 };
@@ -121,6 +123,18 @@ export function ContactForm() {
             placeholder="you@example.com"
             value={form.email}
             onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
+            required
+          />
+        </label>
+        <label>
+          Contact number
+          <input
+            type="tel"
+            name="phone"
+            placeholder="+63 9XX XXX XXXX"
+            value={form.phone}
+            maxLength={40}
+            onChange={(event) => setForm((prev) => ({ ...prev, phone: event.target.value }))}
             required
           />
         </label>

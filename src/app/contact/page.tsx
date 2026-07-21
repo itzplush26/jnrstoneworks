@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { PageHero } from "@/components/page-hero";
 import { FacebookIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
+import { CONTACT_EMAIL, CONTACT_PHONES } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Contact | JNR Stone Works Trading Inc.",
@@ -16,13 +17,18 @@ export default function ContactPage() {
         kicker="Contact"
         title="Start with a consultation, then move into a clean project handoff."
         lead="Use the details below to reach the team directly. Inquiry submissions are delivered to our sales inbox with a branded email format."
-        meta={["+63 917 190 1474", "sales@jnrstoneworks.com", "Quezon City"]}
+        meta={[...CONTACT_PHONES, CONTACT_EMAIL, "Quezon City"]}
         actions={
           <>
-            <a className="button button--gold" href="mailto:sales@jnrstoneworks.com">
+            <a className="button button--gold" href={`mailto:${CONTACT_EMAIL}`}>
               Email the Team
             </a>
-            <a className="button button--ghost" href="https://www.facebook.com" target="_blank" rel="noreferrer">
+            <a
+              className="button button--ghost"
+              href="https://www.facebook.com/jnrstoneworkstradinginc"
+              target="_blank"
+              rel="noreferrer"
+            >
               Message on Facebook
             </a>
           </>
@@ -38,7 +44,11 @@ export default function ContactPage() {
                   <PhoneIcon width={18} height={18} />
                 </span>
                 <strong>Phone</strong>
-                <p>+63 917 190 1474</p>
+                {CONTACT_PHONES.map((phone) => (
+                  <p key={phone}>
+                    <a href={`tel:${phone.replaceAll(" ", "")}`}>{phone}</a>
+                  </p>
+                ))}
               </article>
 
               <article className="contact-card">
@@ -46,7 +56,7 @@ export default function ContactPage() {
                   <MailIcon width={18} height={18} />
                 </span>
                 <strong>Email</strong>
-                <p>sales@jnrstoneworks.com</p>
+                <p>{CONTACT_EMAIL}</p>
               </article>
 
               <article className="contact-card">

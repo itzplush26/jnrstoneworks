@@ -10,6 +10,19 @@ export const NAV_ITEMS = [
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "https://jnrstoneworks.com";
 
+export const CONTACT_PHONES = [
+  "+63 917 190 1474",
+  "+63 915 622 0335",
+  "+63 915 671 0466",
+] as const;
+
+export const CONTACT_EMAIL = "sales@jnrstoneworks.com";
+
+export const ABOUT_COPY = {
+  title: "Crafting Seamless Spaces. Building Lasting Impressions.",
+  lead: "JNR Stone Works Trading Inc. brings together years of solid surface expertise, skilled craftsmanship, and meticulous attention to detail to create seamless spaces that stand the test of time. Specializing in the fabrication and installation of HIMACS® solid surface countertops, we deliver quality, durability, and precision for every residential and commercial project.",
+} as const;
+
 export const HOME_SWATCHES = [
   {
     name: "Diamond White",

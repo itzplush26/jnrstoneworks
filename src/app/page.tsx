@@ -3,9 +3,9 @@ import Link from "next/link";
 import {
   ABOUT_STATS,
   FEATURE_ITEMS,
-  GALLERY_ITEMS,
   WHY_CHOOSE_ITEMS,
 } from "@/data/site";
+import { getGalleryProjects } from "@/lib/gallery-projects";
 import { HomeSwatchCarousel } from "@/components/home-swatch-carousel";
 import {
   ArrowRightIcon,
@@ -20,6 +20,8 @@ import {
 import { ASSETS } from "@/data/assets";
 
 export default function Home() {
+  const featuredProjects = getGalleryProjects().slice(0, 3);
+
   return (
     <main>
       <section id="home" className="section section--dark hero">
@@ -194,20 +196,26 @@ export default function Home() {
           </div>
 
           <div className="gallery-grid">
-            {GALLERY_ITEMS.slice(0, 3).map((item) => (
+            {featuredProjects.map((item, index) => (
               <Link
-                key={item.title}
-                href="/gallery"
-                className={`gallery-card ${item.tall ? "gallery-card--tall" : ""}`}
-                style={{ background: item.gradient }}
+                key={item.folderName}
+                href={`/gallery#${item.slug}`}
+                className={`gallery-card ${index === 0 ? "gallery-card--tall" : ""}`}
               >
-                <span className="gallery-card__category">{item.categoryLabel}</span>
+                <Image
+                  src={item.images[0]}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 920px) 100vw, 28vw"
+                  className="gallery-card__image"
+                />
+                <span className="gallery-card__category">Installed project</span>
                 <h3>{item.title}</h3>
-                <p>{item.description}</p>
+                <p>{item.location}</p>
                 <span className="gallery-card__arrow">
                   Explore gallery <ArrowRightIcon width={14} height={14} />
                 </span>
-                <span className="gallery-card__meta">placeholder photo</span>
+                <span className="gallery-card__meta">{item.images.length} photos</span>
               </Link>
             ))}
           </div>
